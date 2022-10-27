@@ -2,8 +2,8 @@
 
 Connect-ExchangeOnline
 
-$usermailbox = read-Host 'User mailbox to convert to shared mailbox'
-$supervisor = read-Host 'User who is going to be having access to shared mailbox'
+$usermailbox = read-Host "User mailbox to convert to shared mailbox"
+$supervisor = read-Host "User who is going to be having access to shared mailbox"
 
 Set-Mailbox $usermailbox -Type shared
 
