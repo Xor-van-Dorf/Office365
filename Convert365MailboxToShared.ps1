@@ -12,9 +12,7 @@ Set-Mailbox $usermailbox -Type shared
 start-sleep -s 90
 
 
-##Adjust these licenses according to the license that you have, but these two
-##are the most common ones.
-
+#Remove M365 licences
 
 Add-MailboxPermission -Identity $usermailbox -User $supervisor -AccessRights FullAccess
 connect-msolservice 
@@ -23,3 +21,4 @@ $AssignedLicenses = $MsolUser.licenses.AccountSkuId
 foreach($License in $AssignedLicenses) {
     Set-MsolUserLicense -UserPrincipalName $usermailbox -RemoveLicenses $License
 }
+Set-MsolUser -UserPrincipalName $usermailbox -BlockCredential $true
