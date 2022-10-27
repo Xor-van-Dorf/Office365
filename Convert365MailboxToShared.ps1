@@ -18,5 +18,8 @@ start-sleep -s 90
 
 Add-MailboxPermission -Identity $usermailbox -User $supervisor -AccessRights FullAccess
 connect-msolservice 
-Set-MsolUserLicense -UserPrincipalName "$usermailbox" -RemoveLicenses YOURO365NAME:EXCHANGESTANDARD
-Set-MsolUserLicense -UserPrincipalName "$usermailbox" -RemoveLicenses YOURO365NAME:O365_BUSINESS
+$MsolUser = Get-MsolUser -UserPrincipalName $usermailbox
+$AssignedLicenses = $MsolUser.licenses.AccountSkuId
+foreach($License in $AssignedLicenses) {
+    Set-MsolUserLicense -UserPrincipalName $usermailbox -RemoveLicenses $License
+}
